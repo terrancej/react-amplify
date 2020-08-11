@@ -60,7 +60,7 @@ class LoginContainer extends React.Component<Props, State> {
             duration: 1.5
           });
 
-          return history.push({ pathname: '/dashboard' });
+          return history.push('/dashboard');
         } catch (error) {
           notification.error({
             message: 'Error',
