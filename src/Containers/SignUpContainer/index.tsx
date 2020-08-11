@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { Form, Input, Icon, Button, notification, Popover, Spin, Col, Row } from 'antd';
+import { LoadingOutlined, LockOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, notification, Popover, Spin, Col, Row } from 'antd';
 
 /** Presentational */
 import FormWrapper from '../../Components/Styled/FormWrapper';
@@ -209,7 +212,7 @@ class SignUpContainer extends React.Component<Props, State> {
               ]
             })(
               <Input
-                prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />}
+                prefix={<UserOutlined style={{ color: colors.transparentBlack }} />}
                 placeholder="First Name"
               />
             )}
@@ -223,13 +226,13 @@ class SignUpContainer extends React.Component<Props, State> {
                 }
               ]
             })(
-              <Input prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />} placeholder="Last Name" />
+              <Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Last Name" />
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!' }]
-            })(<Input prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />} placeholder="Email" />)}
+            })(<Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Email" />)}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('phoneNumber', {
@@ -241,7 +244,7 @@ class SignUpContainer extends React.Component<Props, State> {
               ]
             })(
               <Input
-                prefix={<Icon type="phone" style={{ color: colors.transparentBlack }} />}
+                prefix={<PhoneOutlined style={{ color: colors.transparentBlack }} />}
                 placeholder="Phone Number"
               />
             )}
@@ -257,7 +260,7 @@ class SignUpContainer extends React.Component<Props, State> {
                 ]
               })(
                 <Input
-                  prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                  prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                   type="password"
                   placeholder="Password"
                 />
@@ -277,7 +280,7 @@ class SignUpContainer extends React.Component<Props, State> {
               ]
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                 type="password"
                 placeholder="Confirm Password"
                 onBlur={this.handleConfirmBlur}
@@ -289,7 +292,7 @@ class SignUpContainer extends React.Component<Props, State> {
             <Row>
               <Col lg={24}>
                 <Button style={{ width: '100%' }} type="primary" disabled={loading} htmlType="submit">
-                  {loading ? <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />} /> : 'Register'}
+                  {loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} /> : 'Register'}
                 </Button>
               </Col>
               <Col lg={24}>

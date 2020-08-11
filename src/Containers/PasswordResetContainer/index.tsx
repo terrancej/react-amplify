@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { Form, Input, Icon, Button, notification, Popover, Spin, Row, Col } from 'antd';
+import { LoadingOutlined, LockOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, notification, Popover, Spin, Row, Col } from 'antd';
 
 /** App theme */
 import { colors } from '../../Themes/Colors';
@@ -121,7 +124,7 @@ class PasswordResetContainer extends React.Component<Props, State> {
                   ]
                 })(
                   <Input
-                    prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                    prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                     placeholder="Enter your verification code"
                   />
                 )}
@@ -140,7 +143,7 @@ class PasswordResetContainer extends React.Component<Props, State> {
                 ]
               })(
                 <Input
-                  prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                  prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                   type="password"
                   placeholder="New Password"
                 />
@@ -163,7 +166,7 @@ class PasswordResetContainer extends React.Component<Props, State> {
                   ]
                 })(
                   <Input
-                    prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                    prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                     type="password"
                     placeholder="Confirm Password"
                     onBlur={this.handleBlur}
@@ -178,7 +181,7 @@ class PasswordResetContainer extends React.Component<Props, State> {
               <Col lg={24}>
                 <Button style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
                   {loading ? (
-                    <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />} />
+                    <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
                   ) : (
                     'Confirm username'
                   )}

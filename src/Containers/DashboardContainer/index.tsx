@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { Auth } from 'aws-amplify';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Layout, Menu, Icon, notification } from 'antd';
+import { HomeOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Layout, Menu, notification } from 'antd';
 
 /** App Theme */
 import { colors } from '../../Themes/Colors';
 
 /** App Constatns */
 import { AUTH_USER_TOKEN_KEY } from '../../Utils/constants';
-import { ClickParam } from 'antd/lib/menu';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { MenuInfo } from 'rc-menu/lib/interface';
 
 const DashBoardContainer: React.SFC<RouteComponentProps> = props => {
   const [collapsed, setCollapsed] = React.useState(false);
-  const handleLogout = async (event: ClickParam) => {
+  const handleLogout = async (event: MenuInfo) => {
     const { history } = props;
     try {
       await Auth.signOut({ global: true }).then(() => {
@@ -30,22 +33,22 @@ const DashBoardContainer: React.SFC<RouteComponentProps> = props => {
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
-            <Icon type="home" />
+            <HomeOutlined />
             <span>Home</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="setting" />
+            <SettingOutlined />
             <span>Settings</span>
           </Menu.Item>
           <Menu.Item key="3" onClick={event => handleLogout(event)}>
-            <Icon type="logout" />
+            <LogoutOutlined />
             <span>Logout</span>
           </Menu.Item>
         </Menu>
       </Layout.Sider>
       <Layout>
         <Layout.Header style={{ background: colors.white, padding: 0 }}>
-          <Icon
+          <LegacyIcon
             className="trigger"
             onClick={() => setCollapsed(!collapsed)}
             type={collapsed ? 'menu-unfold' : 'menu-fold'}

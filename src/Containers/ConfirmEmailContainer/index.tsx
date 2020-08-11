@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { Spin, Icon, Button, Form, notification, Input, Col } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Spin, Button, notification, Input, Col } from 'antd';
 
 // amplify
 import { Auth } from 'aws-amplify';
@@ -144,7 +147,7 @@ class ConfirmEmailContainer extends React.Component<RouteComponentProps, State> 
           </Col>
           <Col md={24} lg={12}>
             <Button type="primary" disabled={loading} htmlType="submit" size="large">
-              {loading ? <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />} /> : 'Confirm Email'}
+              {loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} /> : 'Confirm Email'}
             </Button>
           </Col>
         </EmailConfirmFormWrapper>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Form } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 
 /** App Theme */
 import { colors } from '../../Themes/Colors';

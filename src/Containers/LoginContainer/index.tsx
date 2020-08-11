@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { Form, Icon, Spin, Input, Button, notification, Col, Row } from 'antd';
+import { LoadingOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Spin, Input, Button, notification, Col, Row } from 'antd';
 
 /** Presentational */
 import FormWrapper from '../../Components/Styled/FormWrapper';
@@ -37,7 +40,7 @@ class LoginContainer extends React.Component<Props, State> {
         Auth.signIn(username, password)
           .then(user => {
             const { history, location } = this.props;
-            const { from } = location.state || {
+            const { from } = location.state as any || {
               from: {
                 pathname: '/dashboard'
               }
@@ -85,7 +88,7 @@ class LoginContainer extends React.Component<Props, State> {
                 }
               ]
             })(
-              <Input prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />} placeholder="Username" />
+              <Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Username" />
             )}
           </Form.Item>
           <Form.Item>
@@ -98,7 +101,7 @@ class LoginContainer extends React.Component<Props, State> {
               ]
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                prefix={<LockOutlined style={{ color: colors.transparentBlack }} />}
                 type="password"
                 placeholder="Password"
               />
@@ -119,7 +122,7 @@ class LoginContainer extends React.Component<Props, State> {
                   htmlType="submit"
                   className="login-form-button"
                 >
-                  {loading ? <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />} /> : 'Log in'}
+                  {loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} /> : 'Log in'}
                 </Button>
               </Col>
               <Col lg={24}>
