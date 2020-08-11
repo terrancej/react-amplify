@@ -31,43 +31,47 @@ class LoginContainer extends React.Component<Props, State> {
   handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    this.props.form.validateFields((err: Error, values: { username: string; password: string }) => {
+    this.props.form.validateFields(async (err: Error, values: { username: string; password: string }) => {
       if (!err) {
         let { username, password } = values;
 
         this.setState({ loading: true });
 
-        Auth.signIn(username, password)
-          .then(user => {
-            const { history, location } = this.props;
-            const { from } = location.state as any || {
-              from: {
-                pathname: '/dashboard'
-              }
-            };
+        try {
+          const user = await Auth.signIn(username, password);
 
-            localStorage.setItem(AUTH_USER_TOKEN_KEY, user.signInUserSession.accessToken.jwtToken);
+          const { history } = this.props;
 
-            notification.success({
-              message: 'Succesfully logged in!',
-              description: 'Logged in successfully, Redirecting you in a few!',
-              placement: 'topRight',
-              duration: 1.5
-            });
+          // MFA specific resources:
+          //
+          // - https://aws.amazon.com/premiumsupport/knowledge-center/sns-sms-spending-limit-increase/
+          // - https://docs.amplify.aws/lib/auth/mfa/q/platform/js#sign-in-with-custom-auth-challenges
+          // - https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html
+          if (user.challengeName === 'SMS_MFA') {
+            return console.log('Needs SMS_MFA');
+          }
 
-            history.push(from);
-          })
-          .catch(err => {
-            notification.error({
-              message: 'Error',
-              description: err.message,
-              placement: 'topRight'
-            });
+          localStorage.setItem(AUTH_USER_TOKEN_KEY, user.signInUserSession.accessToken.jwtToken);
 
-            console.log(err);
-
-            this.setState({ loading: false });
+          notification.success({
+            message: 'Succesfully logged in!',
+            description: 'Logged in successfully, Redirecting you in a few!',
+            placement: 'topRight',
+            duration: 1.5
           });
+
+          return history.push({ pathname: '/dashboard' });
+        } catch (error) {
+          notification.error({
+            message: 'Error',
+            description: error.message,
+            placement: 'topRight'
+          });
+
+          console.log(error);
+
+          this.setState({ loading: false });
+        }
       }
     });
   };
