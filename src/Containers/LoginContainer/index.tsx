@@ -108,7 +108,7 @@ class LoginContainer extends React.Component<Props, State> {
             )}
           </Form.Item>
           <Form.Item className="text-center">
-            <Row type="flex" gutter={16}>
+            <Row gutter={16}>
               <Col lg={24}>
                 <Link style={{ float: 'right' }} className="login-form-forgot" to="/forgot-password">
                   Forgot password
