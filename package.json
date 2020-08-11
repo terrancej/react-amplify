@@ -10,7 +10,7 @@
     "@types/react-dom": "16.9.4",
     "@types/react-router-dom": "^5.1.2",
     "@types/styled-components": "^4.4.0",
-    "antd": "^3.25.2",
+    "antd": "4.5.3",
     "aws-amplify": "^1.2.4",
     "jwt-decode": "^2.2.0",
     "password-validator": "^5.0.3",
