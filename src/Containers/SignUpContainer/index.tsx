@@ -21,14 +21,13 @@ type State = {
   redirect: boolean;
   loading: boolean;
   email: string;
+  username: string;
 };
 
 type UserFormData = {
-  fname: string;
-  lname: string;
+  username: string;
   password: string;
   email: string;
-  phoneNumber: number;
 };
 
 const passwordValidator = require('password-validator');
@@ -53,7 +52,8 @@ class SignUpContainer extends React.Component<Props, State> {
     confirmDirty: false,
     redirect: false,
     loading: false,
-    email: ''
+    email: '',
+    username: ''
   };
 
   /**
@@ -93,18 +93,16 @@ class SignUpContainer extends React.Component<Props, State> {
 
     this.props.form.validateFieldsAndScroll((err: Error, values: UserFormData) => {
       if (!err) {
-        let { fname, lname, password, email, phoneNumber } = values;
+        let { username, password, email } = values;
 
         // show loader
         this.setState({ loading: true });
 
         Auth.signUp({
-          username: email,
+          username: username,
           password,
           attributes: {
-            email,
-            name: `${fname} ${lname}`,
-            phone_number: phoneNumber
+            email
           }
         })
           .then(() => {
@@ -119,6 +117,7 @@ class SignUpContainer extends React.Component<Props, State> {
             });
 
             this.setState({ email });
+            this.setState({ username });
           })
           .catch(err => {
             notification.error({
@@ -203,51 +202,21 @@ class SignUpContainer extends React.Component<Props, State> {
       <React.Fragment>
         <FormWrapper onSubmit={this.handleSubmit}>
           <Form.Item>
-            {getFieldDecorator('fname', {
+            {getFieldDecorator('username', {
               rules: [
                 {
                   required: true,
-                  message: 'Please input your first name!'
+                  message: 'Please input your username!'
                 }
               ]
             })(
-              <Input
-                prefix={<UserOutlined style={{ color: colors.transparentBlack }} />}
-                placeholder="First Name"
-              />
-            )}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('lname', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your last name!'
-                }
-              ]
-            })(
-              <Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Last Name" />
+              <Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Username" />
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!' }]
             })(<Input prefix={<UserOutlined style={{ color: colors.transparentBlack }} />} placeholder="Email" />)}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('phoneNumber', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your phone number!'
-                }
-              ]
-            })(
-              <Input
-                prefix={<PhoneOutlined style={{ color: colors.transparentBlack }} />}
-                placeholder="Phone Number"
-              />
-            )}
           </Form.Item>
           <Form.Item>
             <Popover placement="right" title={title} content={passwordPolicyContent} trigger="focus">
@@ -305,7 +274,7 @@ class SignUpContainer extends React.Component<Props, State> {
           <Redirect
             to={{
               pathname: '/verify-code',
-              search: `?email=${this.state.email}`
+              search: `?email=${this.state.email}?username=${this.state.username}`
             }}
           />
         )}

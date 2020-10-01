@@ -50,7 +50,7 @@ class LoginContainer extends React.Component<Props, State> {
           if (user.challengeName === 'SMS_MFA') {
             return console.log('Needs SMS_MFA');
           }
-
+          console.log(user)
           localStorage.setItem(AUTH_USER_TOKEN_KEY, user.signInUserSession.accessToken.jwtToken);
 
           notification.success({

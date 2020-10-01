@@ -32,7 +32,10 @@ class ConfirmEmailContainer extends React.Component<RouteComponentProps, State> 
   componentDidMount() {
     if (this.props.location.search) {
       // get username from url params
-      let username = this.props.location.search.split('=')[1];
+      // let urlParams = new URLSearchParams(this.props.location.search);
+      // console.log(urlParams)
+      //let username = urlParams.get('username') || "";
+      let username = this.props.location.search.split('username=')[1];
 
       this.setState({ username });
     }
