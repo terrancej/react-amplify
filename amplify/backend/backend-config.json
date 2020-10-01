@@ -1,8 +1,0 @@
-{
-	"auth": {
-		"reactAmplify": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation"
-		}
-	}
-}
